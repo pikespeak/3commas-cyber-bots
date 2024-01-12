@@ -638,59 +638,6 @@ def process_cg_section(section_id):
     # No exceptions or other cases happened, everything went Ok
     return True, 0
 
-
-#def process_lunarcrush_section(section_id, listtype):
- #   """Process the Altrank or GalaxyScore section from the configuration"""
-
-    # Reset existing data
-  #  shareddb.execute(
-   #     f"UPDATE rankings SET {listtype.lower()} = {0.0}"
-   # )
-
-    # Download LunarCrush data
-    # Volume is not used, so the price is set to 1.0 instead of the real dynamic value
-    #lunarcrushdata = get_lunarcrush_data(logger, listtype.lower(), config, section_id, 1.0)
-
-    #if not lunarcrushdata:
-        # Commit clearing of database
-    #    shareddb.commit()
-
-        # Retry in 15 minutes
-    #    return False, (60 * 15)
-
-    # Parse LunaCrush data
-    #updatedcoins = 0
-    #for entry in lunarcrushdata:
-    #    coin = entry["s"]
-
-    #    if not has_pair("*", coin):
-            # Coin does not exist, skip this one
-    #        if config.getboolean("settings", "debug-coin-data"):
-    #            logger.debug(
-    #                f"Coin {coin} not in database, cannot update {listtype} data for this coin."
-                )
-
-    #       continue
-
-        # Update rankings data (both Altrank and GalaxyScore are available in the data)
-        rankdata = {}
-        #rankdata["altrank"] = float(entry["acr"])
-        #rankdata["galaxyscore"] = float(entry["gs"])
-        update_values("rankings", "*", coin, rankdata)
-
-        updatedcoins += 1
-
-    # Commit everyting to the database
-    shareddb.commit()
-
-    logger.info(
-        f"{listtype}; updated {updatedcoins} coins.",
-        config.getboolean(section_id, "notify-succesful-update")
-    )
-
-    return True, 0
-
-
 def process_volatility_section(section_id):
     """Process the volatility section from the configuration"""
 
